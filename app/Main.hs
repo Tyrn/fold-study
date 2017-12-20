@@ -40,6 +40,8 @@ foldR f z (x:xs) = f x (foldR f z xs)
 --
 -- >>> foldL (\xs x -> xs ++ [x]) [1,2] [11,12,13]
 -- [1,2,11,12,13]
+-- >>> foldL ((. return) . (++)) [1,2] [11,12,13]
+-- [1,2,11,12,13]
 foldL :: (a -> b -> a) -> a -> [b] -> a
 foldL f z []     = z                
 foldL f z (x:xs) = foldL f (f z x) xs
