@@ -83,14 +83,25 @@ foldL1 :: (a -> a -> a) -> [a] -> a
 foldL1 f (x:xs) = foldL f x xs
 
 
--- | foldR with no starting value argument.
+-- | foldR with no starting value argument, recursive.
 --
 -- Examples:
 --
 -- >>> foldR1 (+) [1,2,3]
 -- 6
 foldR1 :: (a -> a -> a) -> [a] -> a
-foldR1 f (x:xs) = foldR f x xs
+foldR1 f [x]    = x
+foldR1 f (x:xs) = f x (foldR1 f xs)
+
+
+-- | foldR with no starting value argument.
+--
+-- Examples:
+--
+-- >>> foldR1' (+) [1,2,3]
+-- 6
+foldR1' :: (a -> a -> a) -> [a] -> a
+foldR1' f (x:xs) = foldR f x xs
 
 
 main :: IO ()
