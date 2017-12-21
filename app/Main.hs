@@ -104,5 +104,51 @@ foldR1' :: (a -> a -> a) -> [a] -> a
 foldR1' f (x:xs) = foldR f x xs
 
 
+{- Mapping and filtering -}
+
+
+-- | Map, recursive.
+--
+-- Examples:
+--
+-- >>> maP (+10) [1,2,3]
+-- [11,12,13]
+maP :: (a -> b) -> [a] -> [b]
+maP _ []     = []
+maP f (x:xs) = f x : maP f xs
+
+
+-- | Filter, recursive.
+--
+-- Example:
+--
+-- >>> filter (>0) [-2,11,0,43]
+-- [11,43]
+filteR :: (a -> Bool) -> [a] -> [a]
+filteR _ []     = []
+filteR p (x:xs)
+  | p x         = x : filteR p xs
+  | otherwise   =     filteR p xs
+
+
+-- | Map, by foldr.
+--
+-- Examples:
+--
+-- >>> maP (+10) [1,2,3]
+-- [11,12,13]
+maPR :: (a -> b) -> [a] -> [b]
+maPR f = foldR (\x acc -> f x : acc) []
+
+-- | Filter, by foldr.
+--
+-- Example:
+--
+-- >>> filter (>0) [-2,11,0,43]
+-- [11,43]
+filteRR :: (a -> Bool) -> [a] -> [a]
+filteRR p = foldR (\x acc -> if p x then x : acc else acc) []
+
+
 main :: IO ()
 main = someFunc
