@@ -1,7 +1,25 @@
+{-# LANGUAGE OverloadedStrings #-}
+-- ~ {-# LANGUAGE FlexibleContexts #-}
+-- ~ {-# LANGUAGE AllowAmbiguousTypes #-}
+
 -- | A miscellany of sketches, purely self-educational.
 module Main where
 
 import Lib
+
+
+-- | Insertion sort
+--
+-- Examples:
+--
+-- >>> foldR inserTT "" "the quick brown fox jumps over the lazy dog"
+-- "        abcdeeefghhijklmnoooopqrrsttuuvwxyz"
+inserTT :: Ord a => a -> [a] -> [a]
+inserTT x []      = [x]
+inserTT x (y:ys)
+  | x <= y        = x:y:ys
+  | otherwise     = y:(inserTT x ys)
+
 
 -- | Canonical quick sort
 --
