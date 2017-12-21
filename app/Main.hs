@@ -47,5 +47,33 @@ foldL f z []     = z
 foldL f z (x:xs) = foldL f (f z x) xs
 
 
+-- Reduction to poinfree
+a = \xs x -> xs ++ [x]
+b = \xs x -> xs ++ return x
+c = \xs x -> ((xs ++) . return) x
+d = \xs x -> ((. return) (xs ++)) x
+e = \xs x -> ((. return) . (++)) xs x
+
+
+-- | foldL with no starting value argument.
+--
+-- Examples:
+--
+-- >>> foldL1 (+) [1,2,3]
+-- 6
+foldL1 :: (a -> a -> a) -> [a] -> a
+foldL1 f (x:xs) = foldL f x xs
+
+
+-- | foldR with no starting value argument.
+--
+-- Examples:
+--
+-- >>> foldR1 (+) [1,2,3]
+-- 6
+foldR1 :: (a -> a -> a) -> [a] -> a
+foldR1 f (x:xs) = foldR f x xs
+
+
 main :: IO ()
 main = someFunc
