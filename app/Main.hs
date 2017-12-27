@@ -135,7 +135,7 @@ filteR p (x:xs)
 --
 -- Examples:
 --
--- >>> maP (+10) [1,2,3]
+-- >>> maPR (+10) [1,2,3]
 -- [11,12,13]
 maPR :: (a -> b) -> [a] -> [b]
 maPR f = foldR (\x acc -> f x : acc) []
